@@ -41,6 +41,8 @@ export {
   withAuth,
   withAuthPages,
 } from './server';
+export { createAgentServerClient } from './server/createAgentServerClient';
+export { createAgentWebhookHandler } from './server/createAgentWebhookHandler';
 
 // Client exports (use in Client Components)
 export {
@@ -48,6 +50,10 @@ export {
   useAINative,
   useChat,
   useCredits,
+  useAgent,
+  useTask,
+  useMemory,
+  useThread,
 } from './client';
 
 // Type exports

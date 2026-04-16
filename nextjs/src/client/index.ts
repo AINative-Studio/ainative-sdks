@@ -11,6 +11,10 @@ export {
   useAINative,
   useChat,
   useCredits,
+  useAgent,
+  useTask,
+  useMemory,
+  useThread,
 } from '@ainative/react-sdk';
 
 // Re-export types
