@@ -165,4 +165,29 @@ describe('useCredits', () => {
       );
     });
   });
+
+  it('should use HTTP status message when response error has no detail', async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 503,
+      statusText: 'Service Unavailable',
+      json: async () => ({}), // no detail
+    });
+
+    const { result } = renderHook(() => useCredits(), { wrapper });
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.error?.message).toBe('HTTP 503: Service Unavailable');
+  });
+
+  it('should use fallback message for non-Error thrown values', async () => {
+    (global.fetch as jest.Mock).mockRejectedValueOnce('string error');
+
+    const { result } = renderHook(() => useCredits(), { wrapper });
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.error?.message).toBe('Failed to fetch credit balance');
+  });
 });

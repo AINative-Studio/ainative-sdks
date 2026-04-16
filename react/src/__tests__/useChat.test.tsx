@@ -217,4 +217,38 @@ describe('useChat', () => {
       });
     });
   });
+
+  it('should fall back to HTTP status message when error response has no detail', async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 503,
+      statusText: 'Service Unavailable',
+      json: async () => ({}), // no detail field
+    });
+
+    const { result } = renderHook(() => useChat(), { wrapper });
+
+    await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.error?.message).toBe('HTTP 503: Service Unavailable');
+  });
+
+  it('should use fallback message for non-Error thrown values', async () => {
+    // Simulate fetch throwing a non-Error value (rare but possible)
+    (global.fetch as jest.Mock).mockRejectedValueOnce('string error');
+
+    const { result } = renderHook(() => useChat(), { wrapper });
+
+    await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.error?.message).toBe('An unknown error occurred');
+  });
 });
