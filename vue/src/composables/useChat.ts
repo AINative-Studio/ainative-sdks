@@ -36,7 +36,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     state.value.error = null;
 
     try {
-      const response = await fetch(`${baseUrl}/v1/public/chat/completions`, {
+      const response = await fetch(`${baseUrl}/api/v1/managed/chat/completions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

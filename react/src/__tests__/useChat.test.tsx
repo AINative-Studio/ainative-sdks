@@ -33,6 +33,39 @@ describe('useChat', () => {
     expect(result.current.response).toBeNull();
   });
 
+  it('should POST to the real managed-chat backend route, not a nonexistent alias', async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        id: 'chatcmpl-url-check',
+        choices: [{ index: 0, message: { role: 'assistant', content: 'hi' }, finish_reason: 'stop' }],
+      }),
+    });
+
+    const { result } = renderHook(() => useChat(), { wrapper });
+
+    await result.current.sendMessage([{ role: 'user', content: 'Hello' }]);
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    // Real backend mount (src/backend/app/api/api_v1/api.py):
+    //   api_router.include_router(managed_chat_router, prefix="/managed", ...)
+    //   -> full path under API_V1_STR ("/api/v1") is /api/v1/managed/chat/completions
+    // baseUrl already includes "/api/v1" (AINativeProvider default), so the
+    // hook must fetch `${baseUrl}/managed/chat/completions`, NOT
+    // `${baseUrl}/public/managed-chat/chat/completions` (404s - no such route).
+    expect(global.fetch).toHaveBeenCalledWith(
+      expect.stringMatching(/\/managed\/chat\/completions$/),
+      expect.any(Object)
+    );
+    expect(global.fetch).not.toHaveBeenCalledWith(
+      expect.stringContaining('/public/managed-chat/'),
+      expect.any(Object)
+    );
+  });
+
   it('should send message successfully', async () => {
     const mockResponse = {
       id: 'chatcmpl-123',
