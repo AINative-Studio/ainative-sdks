@@ -63,7 +63,7 @@ export function useChat(options: UseChatOptions = {}) {
       }));
 
       try {
-        const response = await fetch(`${baseUrl}/public/managed-chat/chat/completions`, {
+        const response = await fetch(`${baseUrl}/managed/chat/completions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -33,6 +33,49 @@ describe('useChat', () => {
     expect(result.current.response).toBeNull();
   });
 
+  it('should POST to the real managed-chat completions endpoint', async () => {
+    const mockResponse = {
+      id: 'chatcmpl-url-check',
+      model: 'llama-3.3-70b-instruct',
+      provider: 'meta',
+      created: 1704592800,
+      choices: [
+        {
+          index: 0,
+          message: { role: 'assistant', content: 'hi' },
+          finish_reason: 'stop',
+        },
+      ],
+      usage: { prompt_tokens: 1, completion_tokens: 1, total_tokens: 2 },
+      credits_consumed: 0.1,
+      credits_remaining: 1,
+      plan_tier: 'basic',
+      finish_reason: 'stop',
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockResponse,
+    });
+
+    const { result } = renderHook(() => useChat(), { wrapper });
+
+    await result.current.sendMessage([{ role: 'user', content: 'Hello' }]);
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    // Backend mounts this route at {API_V1_STR}/managed/chat/completions
+    // (see src/backend/app/api/api_v1/api.py: include_router(managed_chat_router, prefix="/managed"))
+    // baseUrl already includes /api/v1, so the fetch target must be
+    // `${baseUrl}/managed/chat/completions`, NOT `${baseUrl}/public/managed-chat/chat/completions`.
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://api.ainative.studio/api/v1/managed/chat/completions',
+      expect.any(Object)
+    );
+  });
+
   it('should send message successfully', async () => {
     const mockResponse = {
       id: 'chatcmpl-123',
