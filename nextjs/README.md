@@ -147,6 +147,10 @@ export default withAuthPages(async (req, res, { session, apiKey }) => {
 });
 ```
 
+## Browser CORS Requirement
+
+Client Components using the re-exported `@ainative/react-sdk` hooks call the API directly from the browser, so the same CORS registration requirement applies — see the [React SDK README's Browser CORS Requirement section](https://github.com/AINative-Studio/ainative-sdks/tree/main/react#browser-cors-requirement) for the fix if `useChat`/`useCredits` fail with `Failed to fetch`. Server Components and API Routes using `createServerClient()`/`withAuth()` are unaffected — they run server-side, not in a browser.
+
 ## API Reference
 
 ### Server Utilities
