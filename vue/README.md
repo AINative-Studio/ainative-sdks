@@ -125,6 +125,24 @@ const { balance, isLoading, error, refetch } = useCredits({
 </template>
 ```
 
+## Browser CORS Requirement
+
+If you call the API directly from a browser origin (e.g. `http://localhost:5173`), that origin must be registered for your project. Otherwise the browser blocks the request at preflight and the composables fail with a generic network error:
+
+- `TypeError: Failed to fetch`
+- The request is blocked before `POST .../managed/chat/completions` is ever sent
+
+This is expected browser CORS behavior when your origin isn't allowlisted — it is not a bug in the composable. Command-line tools like `curl` don't enforce browser CORS, so a request can succeed there while failing in the browser until the origin is registered.
+
+**To fix:** register your app's exact origin (scheme + host + port) for your project:
+
+```bash
+curl -X POST "https://api.ainative.studio/api/v1/projects/{project_id}/cors-origins" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"origin": "http://localhost:5173"}'
+```
+
 ## API Reference
 
 ### `useAINative()`
