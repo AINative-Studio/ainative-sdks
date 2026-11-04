@@ -23,23 +23,6 @@ const mockAgent: AgentRegistration = {
   created_at: '2026-01-01T00:00:00Z',
 };
 
-function mockFetchOk(data: unknown, status = 200) {
-  return vi.fn().mockResolvedValueOnce({
-    ok: true,
-    status,
-    json: async () => data,
-  });
-}
-
-function mockFetchError(status: number, detail: string) {
-  return vi.fn().mockResolvedValueOnce({
-    ok: false,
-    status,
-    statusText: 'Error',
-    json: async () => ({ detail }),
-  });
-}
-
 describe('createAgent', () => {
   beforeEach(() => {
     vi.clearAllMocks();
