@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook, waitFor, act } from '@testing-library/react';
 import { AINativeProvider } from '../AINativeProvider';
 import { useChat } from '../hooks/useChat';
 import { Message } from '../types';
@@ -44,7 +44,9 @@ describe('useChat', () => {
 
     const { result } = renderHook(() => useChat(), { wrapper });
 
-    await result.current.sendMessage([{ role: 'user', content: 'Hello' }]);
+    await act(async () => {
+      await result.current.sendMessage([{ role: 'user', content: 'Hello' }]);
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -104,7 +106,9 @@ describe('useChat', () => {
       { role: 'user', content: 'Hello' },
     ];
 
-    await result.current.sendMessage(messages);
+    await act(async () => {
+      await result.current.sendMessage(messages);
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -134,7 +138,9 @@ describe('useChat', () => {
       { role: 'user', content: 'Hello' },
     ];
 
-    await result.current.sendMessage(messages);
+    await act(async () => {
+      await result.current.sendMessage(messages);
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -159,7 +165,9 @@ describe('useChat', () => {
       { role: 'user', content: 'Hello' },
     ];
 
-    await result.current.sendMessage(messages);
+    await act(async () => {
+      await result.current.sendMessage(messages);
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -220,7 +228,9 @@ describe('useChat', () => {
     const onSuccess = jest.fn();
     const { result } = renderHook(() => useChat({ onSuccess }), { wrapper });
 
-    await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    await act(async () => {
+      await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    });
 
     await waitFor(() => {
       expect(onSuccess).toHaveBeenCalledWith(mockResponse);
@@ -240,7 +250,9 @@ describe('useChat', () => {
     const onError = jest.fn();
     const { result } = renderHook(() => useChat({ onError }), { wrapper });
 
-    await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    await act(async () => {
+      await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    });
 
     await waitFor(() => {
       expect(onError).toHaveBeenCalledWith({
@@ -261,7 +273,9 @@ describe('useChat', () => {
 
     const { result } = renderHook(() => useChat(), { wrapper });
 
-    await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    await act(async () => {
+      await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -276,7 +290,9 @@ describe('useChat', () => {
 
     const { result } = renderHook(() => useChat(), { wrapper });
 
-    await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    await act(async () => {
+      await result.current.sendMessage([{ role: 'user', content: 'Test' }]);
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);

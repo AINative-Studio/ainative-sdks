@@ -1,5 +1,16 @@
 # @ainative/react-sdk Changelog
 
+## [1.1.0] - 2026-11-08
+
+### Changed
+- Widened `react` peer dependency to `^18.0.0 || ^19.0.0`. A fresh Vite scaffold defaults to React 19, which previously failed `npm install` with an ERESOLVE peer-dependency conflict against this package's React 18-only constraint.
+- Updated test tooling to `@testing-library/react@^16` (required for React 19) and added `@testing-library/dom` as an explicit devDependency.
+
+### Verified
+- Full test suite (103 tests, 8 suites) passes against both React 18.2.0 and genuinely-confirmed React 19.3.1 + `@testing-library/react@16.3.3`.
+- `npm run build` (Rollup) compiles cleanly.
+- A real `npm install` of this package into a fresh `npm create vite@latest -- --template react-ts` scaffold (React 19.3.1 default) succeeds with no `--legacy-peer-deps` flag, and a consumer app using `AINativeProvider`/`useChat` builds cleanly with `tsc -b && vite build`.
+
 ## [1.0.1] - 2026-01-14
 
 ### Fixed
