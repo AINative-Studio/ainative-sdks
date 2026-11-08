@@ -209,6 +209,11 @@ See the `/examples` directory for complete example applications:
 - Multi-model comparison
 - Chat with history persistence
 
+## Requirements
+
+- Vue 3.0.0 or higher
+- Node.js 18.0.0 or higher
+
 ## License
 
 MIT © AINative Studio

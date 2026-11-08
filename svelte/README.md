@@ -249,6 +249,11 @@ See the `/examples` directory for complete example applications:
 - Multi-model comparison
 - SvelteKit integration
 
+## Requirements
+
+- Svelte 4.0.0 or higher (Svelte 5 also supported)
+- Node.js 18.0.0 or higher
+
 ## License
 
 MIT © AINative Studio

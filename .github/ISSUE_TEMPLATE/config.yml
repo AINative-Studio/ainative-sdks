@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://api.ainative.studio/docs
+    about: Check the docs before filing an issue — your question may already be answered.
+  - name: Support
+    url: https://github.com/AINative-Studio/ainative-sdks/blob/main/SUPPORT.md
+    about: General help and support options.
