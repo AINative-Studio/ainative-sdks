@@ -82,7 +82,7 @@ export function createTask(options: TaskOptions = {}) {
   };
 
   const store = writable<TaskState>(initialState);
-  const { subscribe, update, set } = store;
+  const { subscribe, update } = store;
 
   let activeTaskId: string | null = null;
   let pollTimer: ReturnType<typeof setTimeout> | null = null;

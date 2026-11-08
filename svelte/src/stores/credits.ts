@@ -13,7 +13,7 @@ function createCreditsStore(options: CreditsOptions = {}) {
     error: null,
   };
 
-  const { subscribe, set, update } = writable<CreditsState>(initialState);
+  const { subscribe, update } = writable<CreditsState>(initialState);
 
   const fetchBalance = async () => {
     const config = get(ainativeConfig);
