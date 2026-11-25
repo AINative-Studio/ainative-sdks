@@ -7,7 +7,7 @@ Official AINative Studio client SDKs for React, Vue, Svelte, and Next.js.
 | `@ainative/react-sdk` | [react/](react) | [react/README.md](react/README.md) |
 | `@ainative/vue-sdk` | [vue/](vue) | [vue/README.md](vue/README.md) |
 | `@ainative/svelte-sdk` | [svelte/](svelte) | [svelte/README.md](svelte/README.md) |
-| `@ainative/nextjs-sdk` | [nextjs/](nextjs) | [nextjs/README.md](nextjs/README.md) |
+| `@ainative/next-sdk` | [nextjs/](nextjs) | [nextjs/README.md](nextjs/README.md) |
 
 Each package is independently versioned and published; see its own README
 for installation, usage, and framework-specific setup (including the
