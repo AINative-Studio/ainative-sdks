@@ -131,7 +131,7 @@ describe('createAgentWebhookHandler', () => {
       const res = await handler.appRouter(makeRequest(payload));
       expect(res.status).toBe(500);
 
-      const body = await res.json();
+      const body = (await res.json()) as { error: string };
       expect(body.error).toBe('Handler failed');
     });
   });
