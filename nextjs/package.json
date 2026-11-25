@@ -1,6 +1,6 @@
 {
   "name": "@ainative/next-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Official Next.js SDK for AINative Studio API - Server and client utilities for App Router and Pages Router",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -63,17 +63,17 @@
   },
   "homepage": "https://ainative.studio",
   "peerDependencies": {
-    "next": "^13.0.0 || ^14.0.0",
-    "react": "^18.0.0"
+    "next": "^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+    "react": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "@ainative/react-sdk": "^1.0.0"
+    "@ainative/react-sdk": "file:../react"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5",
     "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.5",
     "@types/jest": "^29.5.10",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.45",
