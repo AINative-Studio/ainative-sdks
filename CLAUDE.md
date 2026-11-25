@@ -9,7 +9,7 @@ credits, tasks) in framework-native hooks/composables/stores.
 - `react/` — `@ainative/react-sdk` (hooks, Jest)
 - `vue/` — `@ainative/vue-sdk` (composables, Vitest)
 - `svelte/` — `@ainative/svelte-sdk` (stores, Vitest)
-- `nextjs/` — `@ainative/nextjs-sdk` (Server Components + API Routes
+- `nextjs/` — `@ainative/next-sdk` (Server Components + API Routes
   helpers, re-exports the React SDK for Client Components; Jest)
 - `docs/` — shared documentation
 
